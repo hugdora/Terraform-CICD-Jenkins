@@ -1,4 +1,4 @@
-output "websiteeenpoint" {
+output "website_enpoint" {
   value = aws_s3_bucket.mybucket.website_endpoint
 }
 
