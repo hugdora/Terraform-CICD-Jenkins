@@ -11,21 +11,25 @@ Creating the Terraform Scripts: We’ll delve into the heart of IaC by crafting 
 Running Two Application Containers with User Data: To demonstrate the practical application of user data, we’ll guide you through launching not just one but two application containers within your AWS instances. This step showcases the versatility and automation capabilities of IaC.
 DevOps project we will be using Terraform and AWS Cloud to set up static website hosting fully automated in seconds. This Terraform project will help beginners understand the concept and working of Terraform with AWS and how you can create a one-click automated solution using Terraform in DevOps
 Setting up Infrastructure State Management:
-## 1- S3 Bucket for Terraform State: We’ll create an AWS S3 bucket dedicated to securely storing your Terraform state files. This is essential for maintaining the state of your infrastructure in a central location.
-## 2- DynamoDB Table for Locking: In addition to the S3 bucket, we’ll set up an AWS DynamoDB table to enable locking capabilities. This ensures that your infrastructure remains in a consistent state when multiple users are working concurrently.
-## 3- Integrating Jenkins and Terraform: To tie it all together, we’ll demonstrate how to integrate Jenkins with Terraform. This integration will empower you to automate the provisioning process, enhance the efficiency of your infrastructure management, and ensure that your Terraform state is securely stored and locked when needed.
-# Prerequisites:
+## 1- S3 Bucket for Terraform State:
+ We’ll create an AWS S3 bucket dedicated to securely storing your Terraform state files. This is essential for maintaining the state of your infrastructure in a central location.
+## 2- DynamoDB Table for Locking: 
+In addition to the S3 bucket, we’ll set up an AWS DynamoDB table to enable locking capabilities. This ensures that your infrastructure remains in a consistent state when multiple users are working concurrently.
+## 3- Integrating Jenkins and Terraform: 
+To tie it all together, we’ll demonstrate how to integrate Jenkins with Terraform. This integration will empower you to automate the provisioning process, enhance the efficiency of your infrastructure management, and ensure that your Terraform state is securely stored and locked when needed.
+## Prerequisites:
 Before you embark on the journey of provisioning AWS resources using Terraform and Jenkins, it’s crucial to ensure that you have all the necessary components and configurations in place. Here are the prerequisites you should have before starting this tutorial:
 
-AWS Account: You must have an active AWS account with administrative privileges or the necessary permissions to create and manage AWS resources.
-S3 Bucket for Terraform State:
+### AWS Account: 
+You must have an active AWS account with administrative privileges or the necessary permissions to create and manage AWS resources.
+### S3 Bucket for Terraform State:
 Purpose: To securely store your Terraform state files remotely.
 Steps:
 Log in to your AWS Management Console.
 Navigate to the S3 service.
 Create an S3 bucket with a unique name in the desired AWS region.
 Note down the bucket name as you’ll use it in your Terraform scripts.
-3.DynamoDB Table for Locking Capability:
+### DynamoDB Table for Locking Capability:
 
 Purpose: To enable locking for Terraform state management.
 Steps:
@@ -34,24 +38,25 @@ Go to the DynamoDB service.
 Create a DynamoDB table with a unique name and primary key.
 Configure the table’s read and write capacity settings as needed.
 Note down the table name for reference.
-4. Jenkins setup:
+### 4.Jenkins setup:
 
 Ensure that Jenkins is up and running in your environment.
 Configure Jenkins with the necessary plugins for AWS and Terraform integration.
-5.Terraform Installation in Jenkins:
+### 5.Terraform Installation in Jenkins:
 
 Terraform should be installed on the Jenkins server to execute Terraform scripts as part of your CI/CD pipeline.
-6.Terraform Files in Source Code Management (SCM):
+### 6.Terraform Files in Source Code Management (SCM):
 
 Your Terraform configuration files should already be available in your Source Code Management system (e.g., Git). Make sure you have the necessary access rights to the repository.
-7.IAM Role for Jenkins EC2 Instance:
+
+### 7.IAM Role for Jenkins EC2 Instance:
 
 Purpose: To grant the Jenkins EC2 instance the necessary permissions to interact with AWS resources.
 Steps:
 Create an IAM role in AWS.
 Attach the appropriate policy that grants permissions for AWS resource provisioning, DynamoDB access, S3 bucket operations, and any other required permissions.
 Associate the IAM role with the Jenkins EC2 instance.
-8.GitHub Repository (Optional):
+### 8.GitHub Repository (Optional):
 
 If you’re using a public repository as an example, you can fork the repository and start making changes in your own forked repository. Ensure that you have the necessary access to the repository.
 With these prerequisites in place, you’ll be well-prepared to dive into the tutorial and learn how to leverage Terraform, Jenkins, AWS S3, and DynamoDB to automate the provisioning and state management of your AWS resources. These foundational components are key to a successful IaC implementation and CI/CD pipeline for infrastructure.
