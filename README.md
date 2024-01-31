@@ -61,6 +61,7 @@ Associate the IAM role with the Jenkins EC2 instance.
 If you’re using a public repository as an example, you can fork the repository and start making changes in your own forked repository. Ensure that you have the necessary access to the repository.
 With these prerequisites in place, you’ll be well-prepared to dive into the tutorial and learn how to leverage Terraform, Jenkins, AWS S3, and DynamoDB to automate the provisioning and state management of your AWS resources. These foundational components are key to a successful IaC implementation and CI/CD pipeline for infrastructure.
 ### jenkins pipeline 
+```
 pipeline{
     agent any
     tools{
@@ -128,3 +129,5 @@ pipeline{
         }
     }
 }
+
+```
