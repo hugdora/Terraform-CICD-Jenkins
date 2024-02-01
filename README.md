@@ -60,7 +60,74 @@ Associate the IAM role with the Jenkins EC2 instance.
 
 If you’re using a public repository as an example, you can fork the repository and start making changes in your own forked repository. Ensure that you have the necessary access to the repository.
 With these prerequisites in place, you’ll be well-prepared to dive into the tutorial and learn how to leverage Terraform, Jenkins, AWS S3, and DynamoDB to automate the provisioning and state management of your AWS resources. These foundational components are key to a successful IaC implementation and CI/CD pipeline for infrastructure.
+# TUTORIAL
+* Launch an Ubuntu(22.04) T2 Large Instance
+* Install Jenkins, Docker and Trivy
+* After the docker installation, we create a sonarqube container (Remember to add 9000 ports in the security group).
+```
+docker run -d --name sonar -p 9000:9000 sonarqube:lts-community
+
+```
+* Install Plugins like JDK, Sonarqube Scanner, Terraform, Eclipse Temurin Installer, Docker, Docker Commons, Docker pipeline, Docker API, Docker build step
+* Configure Java and Terraform, Docker in Global Tool Configuration
+![Alt text](image-1.png)
+![Alt text](image-2.png)
+![Alt text](image-12.png)
+Add Docker Hub Username and Password under Global Credentials
+![Alt text](image-13.png)
+* Configure Sonar Server in Manage Jenkins
+Grab the Public IP Address of your EC2 Instance, Sonarqube works on Port 9000, so <Public IP>:9000. Goto your Sonarqube Server. Click on Administration → Security → Users → Click on Tokens and Update Token → Give it a name → and click on Generate Token
+![Alt text](image-3.png)
+click on update Token
+![Alt text](image-4.png)
+Create a token with a name and generate
+![Alt text](image-5.png)
+copy Token
+
+Goto Jenkins Dashboard → Manage Jenkins → Credentials → Add Secret Text. It should look like this
+![Alt text](image-6.png)
+Now, go to Dashboard → Manage Jenkins → System and Add like the below image.
+
+![Alt text](image-7.png)
+Click on Apply and Save
+
+The Configure System option is used in Jenkins to configure different server
+
+Global Tool Configuration is used to configure different tools that we install using Plugins
+
+We will install a sonar scanner in the tools.
+![Alt text](image-8.png)
+
+In the Sonarqube Dashboard add a quality gate also
+
+Administration → Configuration →Webhooks
+
+![Alt text](image-9.png)
+
+Click on Create
+![Alt text](image-10.png)
+
+Add details
+
+```
+<http://jenkins-public-ip:8080>/sonarqube-webhook/
+
+```
+![Alt text](image-11.png)
+
+* create an IAM, S3 bucket and Dynamo DB table.
+- Create IAM role for EC2 and add this permissions policies: AmazonEC2FullAccess, AmazonS3FullAccess, AmazonDynamoDBFullAccess
+go to the Jenkins instance and add this role to the Ec2 instance.
+- Click the “Table name” field. enter “dynamodb_table = “devsecops-west1-dynamo-db-table””
+
+Click the “Enter the partition key name” field.
+
+Type “LockID”
+
+
+
 ### jenkins pipeline 
+Let’s create a Job now in Jenkins set a job name and add this pipeline
 ```
 pipeline{
     agent any
@@ -131,3 +198,17 @@ pipeline{
 }
 
 ```
+you will succeed but I want to do this with build parameters to apply and destroy while building only.
+
+you have to add this inside job like below image
+![Alt text](image-14.png)
+![Alt text](image-15.png)
+Now copy the newly created Instance Ip address
+```
+<instance-ip:3000> #zomato app container
+<instance-ip:8081> #netflix app container
+
+```
+![Alt text](image-16.png)
+![Alt text](image-17.png)
+Then destroy everything
